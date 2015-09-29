@@ -15,7 +15,7 @@ END
 $pullDemoContainers = <<END
   docker pull kitematic/hello-world-nginx
   docker pull tutum/influxdb
-  docker pull tutum/grafana
+  docker pull grafana/grafana
 END
 
 # Add Dcoker Compose to the image
@@ -32,9 +32,9 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 80, host: 9123
 
   # Graphana / Influx
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 8083, host: 8083
   config.vm.network "forwarded_port", guest: 8086, host: 8086
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
   
   config.vm.provider "virtualbox" do |vb|
      # Customize the amount of memory on the VM:
