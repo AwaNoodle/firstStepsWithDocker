@@ -9,8 +9,13 @@ END
 # Update to the latest Docker
 $installLatestDocker = <<END
 	 curl -sSL https://get.docker.com/ | sh
-	 usermod -aG docker vagrant
-	 docker pull docker/whalesay
+	 usermod -aG docker vagrant 
+END
+
+$pullDemoContainers = <<END
+  docker pull Kitematic/hello-world-nginx
+  docker pull tutum/influxdb
+  docker pull tutum/grafana
 END
 
 # Add Dcoker Compose to the image
@@ -36,7 +41,8 @@ Vagrant.configure(2) do |config|
      vb.memory = "1024"
   end
 
-  	config.vm.provision "shell", inline: $update
-	  config.vm.provision "shell", inline: $installLatestDocker
-    config.vm.provision "shell", inline: $installCompose
+  	config.vm.provision "shell", name: "Update Machine", inline: $update
+	  config.vm.provision "shell", name: "Install Docker", inline: $installLatestDocker
+    config.vm.provision "shell", name: "Install Docker-Compose", inline: $installCompose
+    config.vm.provision "shell", name: "Install Demo Containers", inline: $pullDemoContainers
 end
