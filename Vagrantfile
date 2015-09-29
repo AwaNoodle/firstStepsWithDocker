@@ -13,7 +13,7 @@ $installLatestDocker = <<END
 END
 
 $pullDemoContainers = <<END
-  docker pull Kitematic/hello-world-nginx
+  docker pull kitematic/hello-world-nginx
   docker pull tutum/influxdb
   docker pull tutum/grafana
 END
