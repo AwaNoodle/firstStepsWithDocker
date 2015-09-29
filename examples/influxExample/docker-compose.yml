@@ -1,0 +1,16 @@
+influx:
+  container_name: influxdb
+  image: tutum/influxdb
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+  environment:
+    - PRE_CREATE_DB=db1
+graphana:
+  container_name: grafana
+  image: grafana/grafana
+  stdin_open: true
+  ports: 
+    - "3000:3000"
+  environment:
+    - GF_AUTH_ANONYMOUS_ENABLED=false
