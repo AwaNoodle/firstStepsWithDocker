@@ -37,7 +37,7 @@ On the VM command line type:
 
 What we are seeing is Docker looking for the container image locally, and when it doesn't find it, it's pulling down the image. 
 
-Each of the hashcodes represents a layer. A Docker image is made of layers, which when put together, form your full image. You can read more about images [here](http://tuhrig.de/layering-of-docker-images/). You can see a visual representation of the **docker/whalesay** container using [ImageLayer.io](https://imagelayers.io/?images=docker%2Fwhalesay:latest)
+Each of the hash codes represents a layer. A Docker image is made of layers, which when put together, form your full image. You can read more about images [here](http://tuhrig.de/layering-of-docker-images/). You can see a visual representation of the **docker/whalesay** container using [ImageLayer.io](https://imagelayers.io/?images=docker%2Fwhalesay:latest)
 
 Once the image has downloaded, you should see a fancy picture of a Whale saying hello. You've consumed your first Docker container!
 
@@ -68,7 +68,7 @@ Host Machine (port 9123) -> Vagrant VM (9123 forwards to 80) -> Docker (80 forwa
 
 We tell Docker to bind ports using the **-p** switch, in the form of **-p <host port>:<container port>**. 
 
-We also want to give our instance a name, instead of relying on a hashcode or auto-generated name. Simply, we do this using the **--name** switch.
+We also want to give our instance a name, instead of relying on a hash code or auto-generated name. Simply, we do this using the **--name** switch.
 
 Putting this all together, this looks like:
 
