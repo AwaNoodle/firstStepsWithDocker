@@ -19,7 +19,7 @@ We are making use of
 
 For all exercises, you will need to remote into the virtual machine created by Vagrant. You can do this easily with 
 
-    > vagrant up
+    > vagrant ssh
 
 ### Exercise 1 - Testing Docker is Working
 
@@ -43,9 +43,15 @@ Once the image has downloaded, you should see a fancy picture of a Whale saying 
 
 What has happened is we've asked Docker to run the Whalesay application. It's not found it locally, so it's gone to online to find the image and pull it down. Once the image was down it's started an instance of the container which executed the Whalesay application and produced the output on screen. Once Whalesay exited, the container shut down, it's job being done. 
 
-We can see the instance of the container in the Docker process list. While the application and instance have stopped, it will stay resident until we remove it.
+We can see the instance of the container in the Docker process list. While the application and instance have stopped, it will stay resident until we remove it. 
 
     > docker ps -a
+
+The process list will show you an exited container using the docker/whalesay image. The first line will be the container ID. Take a copy of that ID and type:
+
+    > docker rm <the container ID here>
+
+The container will be removed. 
 
 ## Examples
 
