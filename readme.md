@@ -66,7 +66,7 @@ We also need to be able to talk to nginx. The container was created to expose po
 
 Host Machine (port 9123) -> Vagrant VM (9123 forwards to 80) -> Docker (80 forward to 80)
 
-We tell Docker to bind ports using the **-p** switch, in the form of **-p <host port>:<container port>**. 
+We tell Docker to bind ports using the **-p** switch, in the form of **-p \<host port\>:\<container port\>**. 
 
 We also want to give our instance a name, instead of relying on a hash code or auto-generated name. Simply, we do this using the **--name** switch.
 
@@ -76,19 +76,19 @@ Putting this all together, this looks like:
 
 The container will now (quickly) start. If you check the Docker process list you will see that the container has started and is showing some uptime. 
 
-On your host machine (not the VM), if you navigate to (http://localhost:9123) you should see a Kitematic Hello World page.
+On your host machine (not the VM), if you navigate to [http://localhost:9123] you should see a Kitematic Hello World page.
 
 This is pretty cool: we have a website up and running with next to no time or effort involved. Still, serving someone else's page isn't too much use. We need to be able to supply our own site. We can do this using Mount Points. 
 
 The creator of a container can set paths inside the container than can be redirected to a path of our choose. While the path set by the container author exists only in the container, we can essentially override this to supply files from the Docker hosts file system (our VM). The application in the container still sees this as the original path but we now control the content. 
 
-Mount points are exposed via the **-v** switch, following the pattern of **-v <full host path>:<container mount point path>**. For the Kitematic container, the author has added a mount point at **/website_files**. Lets override this by stopping and removing our current container and then creating a new one:
+Mount points are exposed via the **-v** switch, following the pattern of **-v \<full host path\>:\<container mount point path\>**. For the Kitematic container, the author has added a mount point at **/website_files**. Lets override this by stopping and removing our current container and then creating a new one:
 
     > docker rm $(docker stop nginx)
     > mkdir /vagrant/ourWebsite
     > docker run -d -p 80:80 -v /vagrant/ourWebsite:/website_files --name nginx kitematic/hello-world-nginx
 
-If you navigate to the site on (http://localhost:9123) you will see the same page. However, it's now being server from our folder. We can see this if we look in the folder:
+If you navigate to the site on [http://localhost:9123] you will see the same page. However, it's now being server from our folder. We can see this if we look in the folder:
 
     > ls /vagrant/ourWebsite
     index.html
