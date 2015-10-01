@@ -54,7 +54,7 @@ The process list will show you an exited container using the docker/whalesay ima
 If you check the Docker process list you will see the container will now be removed. 
 
 
-## Example 2 - Using nginx
+## Exercise 2 - Using nginx
 
 Lets use Docker to run a service that we can use to provide a more useful service, like providing a web server to host a site.
 
