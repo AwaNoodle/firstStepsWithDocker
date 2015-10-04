@@ -179,10 +179,10 @@ Next, we need to connect Grafana to Influx. Open up Grafana located at (http://l
 - Name = Influx
 - Type = InfluxDB 0.9.x
 - Url = http://localhost:8086
-- Access - direct
-- Database - db1
-- User - root
-- Password - root
+- Access = direct
+- Database = db1
+- User = root
+- Password = root
 
 Click **Add** at the bottom. Once added, scroll back down and click **Test Connection**. You should see lots of green.
 
