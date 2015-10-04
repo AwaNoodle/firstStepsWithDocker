@@ -106,3 +106,43 @@ The index.html has been added by the container. We can now edit this file and su
 You can see the mount point and ports defined for the container in the [Dockerfile](/exercises/exercise2/Dockerfile) used to build the container
 
 ## Exercise 3 - Creating a Stack with Docker
+
+We will often want to run several containers together to provide some capability, such as an ELK stack. While it's simple enough to start up and control several containers, it's easier to manage them all together. For this, we can use [Docker-Compose](https://docs.docker.com/compose/) to define the containers we want to run together and to manage starting and stopping them.
+
+For this exercise, we are going to create a simple monitoring stack using [InfluxDb](https://influxdb.com/) and [Grafana](http://grafana.org/). We are going to use the [tutum/influxdb](https://hub.docker.com/r/tutum/influxdb/) and [official Grafana](https://hub.docker.com/r/grafana/grafana/) containers to achieve this.
+
+Inside the exercises/exercise3 folder is a pre-built Docker Compose yml file, [docker-compose.yml](/exercises/exercise3/docker-compose.yml). Lets have a look at what it does:
+
+```yml
+influx:
+  container_name: influxdb
+  image: tutum/influxdb
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+  environment:
+    - PRE_CREATE_DB=db1
+graphana:
+  container_name: grafana
+  image: grafana/grafana
+  stdin_open: true
+  ports: 
+    - "3000:3000"
+  environment:
+    - GF_AUTH_ANONYMOUS_ENABLED=false
+```
+
+We're not doing anything complex here, just telling Docker-Compose to bring up and configure the two containers. Most of the options should be familiar as we've covered them before, there are a few new ones:
+- **environment** is essentially the same as supplying the **-e** argument to **docker run**. It will set an environment variable in the container which will be picked up by the software running inside. Influx is using it to create a database for us. Grafana is turning off anonymous authentication
+- ** stdin_open** is the same as passing the **-i** to **docker run**. It will keep STDIN open even if we are not attached to the container
+
+To use the file, we need to move to the folder inside the VM and start the containers. Let's ask Docker-Compose to bring the stack up:
+
+```bash
+> cd /vagrant/exercises/exercise3
+> docker-compose up -d
+```
+
+If you check your Docker process list, you'll see two new containers, **influx** and **grafana**. We can now access both from our host machine. Influx is available at (http://localhost:8083) and Grafana is located at (http://localhost:3000).
+
+![Starting up Influx and Grafana](/exercises/exercise3/demoA.gif)
