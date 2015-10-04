@@ -5,8 +5,10 @@
 A starting point for a Docker demo. 
 
 Make sure you've installed Vagrant and VirtualBox and then 
-    
-    > vagrant up
+
+```bash
+> vagrant up
+```
 
 The machine will start up and download the latest version of Docker, Docker-Compose, and add some base images needed for the session.
 
@@ -19,7 +21,9 @@ We are making use of
 
 For all exercises, you will need to remote into the virtual machine created by Vagrant. You can do this easily with 
 
-    > vagrant ssh
+```
+> vagrant ssh
+```
 
 ### Exercise 1 - Testing Docker is Working
 
@@ -27,14 +31,15 @@ Our first exercise is to show that Docker is installed and working correctly. We
 
 On the VM command line type:
 
-    > docker run docker/whalesay cowsay "Hello from Docker"
-    Unable to find image 'docker/whalesay:latest' locally
-    latest: Pulling from docker/whalesay
-    e9e06b06e14c: Pull complete
-    a82efea989f9: Pull complete
-    ... elided ...
-    Status: Downloaded newer image for docker/whalesay:latest
-
+```bash
+> docker run docker/whalesay cowsay "Hello from Docker"
+Unable to find image 'docker/whalesay:latest' locally
+latest: Pulling from docker/whalesay
+e9e06b06e14c: Pull complete
+a82efea989f9: Pull complete
+... elided ...
+Status: Downloaded newer image for docker/whalesay:latest
+```
 
 ![Exercise 1 Demo](/exercises/exercise1/demo.gif)
 
@@ -49,11 +54,15 @@ What has happened is we've asked Docker to run the Whalesay application. It's no
 
 We can see the instance of the container in the Docker process list. While the application and instance have stopped, it will stay resident until we remove it. 
 
-    > docker ps -a
+```bash
+> docker ps -a
+```
 
 The process list will show you an exited container using the docker/whalesay image. The first line will be the container ID. Take a copy of that ID and type:
 
-    > docker rm <the container ID here>
+```bash
+> docker rm <the container ID here>
+```
 
 If you check the Docker process list you will see the container will now be removed. 
 
@@ -76,7 +85,9 @@ We also want to give our instance a name, instead of relying on a hash code or a
 
 Putting this all together, this looks like:
 
-    > docker run -d -p 80:80 --name nginx kitematic/hello-world-nginx
+```bash
+> docker run -d -p 80:80 --name nginx kitematic/hello-world-nginx
+```
 
 The container will now (quickly) start. If you check the Docker process list you will see that the container has started and is showing some uptime. 
 
@@ -90,14 +101,18 @@ The creator of a container can set paths inside the container than can be redire
 
 Mount points are exposed via the **-v** switch, following the pattern of **-v \<full host path\>:\<container mount point path\>**. For the Kitematic container, the author has added a mount point at **/website_files**. Lets override this by stopping and removing our current container and then creating a new one:
 
-    > docker rm $(docker stop nginx)
-    > mkdir /vagrant/ourWebsite
-    > docker run -d -p 80:80 -v /vagrant/ourWebsite:/website_files --name nginx kitematic/hello-world-nginx
+```bash
+> docker rm $(docker stop nginx)
+> mkdir /vagrant/ourWebsite
+> docker run -d -p 80:80 -v /vagrant/ourWebsite:/website_files --name nginx kitematic/hello-world-nginx
+```
 
 If you navigate to the site on [http://localhost:9123] you will see the same page. However, it's now being served from our folder. We can see this if we look in the folder:
 
-    > ls /vagrant/ourWebsite
-    index.html
+```bash
+> ls /vagrant/ourWebsite
+index.html
+```
 
 The index.html has been added by the container. We can now edit this file and supply our own content. Since the folder was created in **/vagrant** it will be available on your host machine in the project folder. Find and open the file and change the content. Once you've finished, save the file and refresh the page.
 
@@ -146,3 +161,16 @@ To use the file, we need to move to the folder inside the VM and start the conta
 If you check your Docker process list, you'll see two new containers, **influx** and **grafana**. We can now access both from our host machine. Influx is available at (http://localhost:8083) and Grafana is located at (http://localhost:3000).
 
 ![Starting up Influx and Grafana](/exercises/exercise3/demoA.gif)
+
+We need to add some data to Influx to have something to query when using Grafana. The **exercise3** has a simple shell script to send some random data to Influx. Run this a few times (ten or so will be fine) to generate some data:
+
+```bash
+> ./sendData.sh
+Sending data to cpu_load_short with value 65
+> ./sendData.sh
+Sending data to cpu_load_short with value 78
+```
+
+We can see the data inside Influx. Open up the Influx site at (http://localhost:8083) and click the **Database:** label in the top-right corner. Select **db1** from the dropdown. Inside the **Query** text box, enter **select \* from cpu_load_short** and hit enter. You'll be shown a list of datapoints.
+
+![Adding data to Influx](/exercises/exercise3/demoB.gif)
