@@ -174,3 +174,17 @@ Sending data to cpu_load_short with value 78
 We can see the data inside Influx. Open up the Influx site at (http://localhost:8083) and click the **Database:** label in the top-right corner. Select **db1** from the dropdown. Inside the **Query** text box, enter **select \* from cpu_load_short** and hit enter. You'll be shown a list of datapoints.
 
 ![Adding data to Influx](/exercises/exercise3/demoB.gif)
+
+Next, we need to connect Grafana to Influx. Open up Grafana located at (http://localhost:3000) and log in using admin / admin as the username and password. We now need to add a datasource for Grafana to use. Click on the Grafana logo in the top-left corner and a sidebar will open. Click on **Data Sources** followed by **Add new** on the top. Then add the following details:
+- Name = Influx
+- Type = InfluxDB 0.9.x
+- Url = http://localhost:8086
+- Access - direct
+- Database - db1
+- User - root
+- Password - root
+
+Click **Add** at the bottom. Once added, scroll back down and click **Test Connection**. You should see lots of green.
+
+![Connecting to Influx](/exercises/exercises3/demoC.gif)
+
