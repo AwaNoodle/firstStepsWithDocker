@@ -186,5 +186,5 @@ Next, we need to connect Grafana to Influx. Open up Grafana located at (http://l
 
 Click **Add** at the bottom. Once added, scroll back down and click **Test Connection**. You should see lots of green.
 
-![Connecting to Influx](/exercises/exercises3/demoC.gif)
+![Connecting to Influx](/exercises/exercise3/demoC.gif)
 
