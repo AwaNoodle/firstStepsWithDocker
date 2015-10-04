@@ -35,6 +35,10 @@ On the VM command line type:
     ... elided ...
     Status: Downloaded newer image for docker/whalesay:latest
 
+
+![Exercise 1 Demo](/exercises/exercise1/demo.gif)
+
+
 What we are seeing is Docker looking for the container image locally, and when it doesn't find it, it's pulling down the image. 
 
 Each of the hash codes represents a layer. A Docker image is made of layers, which when put together, form your full image. You can read more about images [here](http://tuhrig.de/layering-of-docker-images/). You can see a visual representation of the **docker/whalesay** container using [ImageLayer.io](https://imagelayers.io/?images=docker%2Fwhalesay:latest)
@@ -98,6 +102,3 @@ The index.html has been added by the container. We can now edit this file and su
 
 ## Exercise 3 - Creating a Stack with Docker
 
-## Examples
-
-The examples folder contains an example Dockerfile from the **kitematic/nginx-hello-world** project. It also contains an example on a small stack with Docker-Compose.
