@@ -82,6 +82,8 @@ The container will now (quickly) start. If you check the Docker process list you
 
 On your host machine (not the VM), if you navigate to [http://localhost:9123] you should see a Kitematic Hello World page.
 
+![Running nginx](/exercises/exercise2/demoA.gif)
+
 This is pretty cool: we have a website up and running with next to no time or effort involved. Still, serving someone else's page isn't too much use. We need to be able to supply our own site. We can do this using Mount Points. 
 
 The creator of a container can set paths inside the container than can be redirected to a path of our choose. While the path set by the container author exists only in the container, we can essentially override this to supply files from the Docker hosts file system (our VM). The application in the container still sees this as the original path but we now control the content. 
@@ -92,13 +94,15 @@ Mount points are exposed via the **-v** switch, following the pattern of **-v \<
     > mkdir /vagrant/ourWebsite
     > docker run -d -p 80:80 -v /vagrant/ourWebsite:/website_files --name nginx kitematic/hello-world-nginx
 
-If you navigate to the site on [http://localhost:9123] you will see the same page. However, it's now being server from our folder. We can see this if we look in the folder:
+If you navigate to the site on [http://localhost:9123] you will see the same page. However, it's now being served from our folder. We can see this if we look in the folder:
 
     > ls /vagrant/ourWebsite
     index.html
 
 The index.html has been added by the container. We can now edit this file and supply our own content. Since the folder was created in **/vagrant** it will be available on your host machine in the project folder. Find and open the file and change the content. Once you've finished, save the file and refresh the page.
 
+![Running nginx](/exercises/exercise2/demoB.gif)
+
+You can see the mount point and ports defined for the container in the [Dockerfile](/exercises/exercise2/Dockerfile) used to build the container
 
 ## Exercise 3 - Creating a Stack with Docker
-
