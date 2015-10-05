@@ -188,3 +188,21 @@ Click **Add** at the bottom. Once added, scroll back down and click **Test Conne
 
 ![Connecting to Influx](/exercises/exercise3/demoC.gif)
 
+Lastlu, we need to display the data inside a graph. On the left-hand panel, click **Dashboards**. Click the **Home** label at the top to open the dashboards dropdown. Scroll to the bottom and click **New**. A new dashboard will appear. Click the small green tag on the left side of the dashboard to open up the options and select **Add Panel** and then **Graph**. A new & empty graph panel will be shown. Click on the title of the panel and select **Edit** on the small panel that appears. You will now be shown a panel to enter queries. For the **Sekect** section, click on **mean** and choose **sum** from the dropdown. Next, move to the **From** section and enter **cpu_load_short**. If we had more data or wanted to display transforms of our **cpu_load_short** data, we would be able to do that here. If you're not seeing any results, change the display period on the top-right of the graph panel to something that covers the time you sent the data to Influx.
+
+![Adding a Graph](/exercises/exercise3/demoD.gif)
+
+It's quite simple but we now have a way to store data and to display it in a friendly way.
+
+Once we are finished playing, we can shut down and remove the stack:
+
+```bash
+> docker-compose kill
+Killing influxdb... done
+Killing grafana... done
+> docker-compose rm
+Going to remove influxdb, grafana
+Are you sure? [yN] y
+Removing influxdb... done
+Removing grafana... done
+```
