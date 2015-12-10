@@ -81,6 +81,8 @@ Host Machine (port 9123) -> Vagrant VM (9123 forwards to 80) -> Docker (80 forwa
 
 We tell Docker to bind ports using the **-p** switch, in the form of **-p [host port]:[container port]**. We can direct any port we like, as long as it doesn't cause a conflict.
 
+You can tell Docker to publish all the ports automatically using the **-P** switch. Which is quick handy..but they publish to random ports meaning you'll need to figure out what is what. 
+
 We also want to give our instance a name, instead of relying on a hash code or auto-generated name. Simply, we do this using the **--name** switch. As a rule, it's always useful to give the containers a name. You don't want to be looking a 20 containers based on the same image and generated names.
 
 Putting this all together, this looks like:
